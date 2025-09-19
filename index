@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aída Fuentes | Portafolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #faf9f6; /* cosmic latte vibes */
+      color: #333;
+    }
+    header {
+      padding: 4rem 1rem;
+      background-color: #708238; /* olive green */
+      color: white;
+    }
+    h1 {
+      margin: 0;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+    section {
+      padding: 2rem;
+    }
+    a {
+      color: #708238;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Hola, soy Aída Fuentes 👩🏻‍💻</h1>
+    <p>Economista & Analista de Datos</p>
+  </header>
+
+  <section>
+    <h2>Sobre mí</h2>
+    <p>
+      Apasionada por la ciencia de datos, la estrategia y la creatividad.
+      Actualmente trabajo en Oliver Wyman y he completado el programa de Data Science & Machine Learning en MIT.
+    </p>
+  </section>
+
+  <section>
+    <h2>Proyectos destacados</h2>
+    <ul style="list-style: none; padding: 0;">
+      <li><a href="https://github.com/aidafuva/spotify-recommender">🎵 Spotify Recommendation System</a></li>
+      <li><a href="https://github.com/aidafuva/sql-analysis">📊 SQL Business Analysis</a></li>
+      <li><a href="https://github.com/aidafuva/mit-dsml">📚 MIT Data Science Projects</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Contacto</h2>
+    <p>
+      <a href="mailto:tuemail@gmail.com">📧 Email</a> |
+      <a href="https://www.linkedin.com/in/aidafuva">💼 LinkedIn</a> |
+      <a href="cv.pdf">📄 CV</a>
+    </p>
+  </section>
+</body>
+</html>
