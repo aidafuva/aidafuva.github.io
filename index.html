@@ -1,72 +1,224 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aída Fuentes | Portafolio</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-      background-color: #faf9f6; /* cosmic latte vibes */
-      color: #333;
-    }
-    header {
-      padding: 4rem 1rem;
-      background-color: #708238; /* olive green */
-      color: white;
-    }
-    h1 {
-      margin: 0;
-    }
-    p {
-      font-size: 1.2rem;
-    }
-    section {
-      padding: 2rem;
-    }
-    a {
-      color: #708238;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aída Fuentes — Scrapbook Portfolio</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper:#f7f2e9;
+    --ink:#1f1f1f;
+    --rose:#e9a6c1;
+    --olive:#6f7d3a;
+    --tape:#f3e8c8;
+    --shadow: 0 10px 24px rgba(0,0,0,.12);
+    --thin: 1px solid rgba(0,0,0,.08);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; color:var(--ink); background: var(--paper);
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height:1.6;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient( rgba(0,0,0,.04) 1px, transparent 1px ) 0 0/3px 3px,
+      linear-gradient(transparent 0 70%, rgba(0,0,0,.03) 100%);
+    mix-blend-mode:multiply;
+    opacity:.25;
+  }
+
+  .nav{
+    position:sticky; top:0; z-index:5;
+    display:flex; gap:1rem; align-items:center; justify-content:space-between;
+    padding:.6rem 1rem; border-bottom:var(--thin);
+    background:color-mix(in srgb, var(--paper) 85%, #fff 15%);
+  }
+  .brand{
+    font-family:"Caveat", cursive; font-size:1.9rem; font-weight:700; letter-spacing:.5px;
+  }
+  .nav a{
+    text-decoration:none; color:var(--ink); font-weight:700; border-bottom:2px solid transparent;
+    padding:.2rem .1rem; margin-left:1rem;
+  }
+  .nav a:hover{ border-color:var(--olive); color:var(--olive); }
+
+  .wrap{ max-width:1100px; margin:0 auto; padding:1.2rem; }
+
+  .hero{
+    display:grid; grid-template-columns: 1.1fr .9fr; gap:1.5rem; align-items:center;
+    margin:1rem 0 2rem;
+  }
+  @media (max-width: 900px){ .hero{ grid-template-columns:1fr; } }
+
+  .scribble{
+    font-family:"Caveat", cursive;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    line-height:1.05; margin:.4rem 0 0;
+  }
+  .kicker{
+    display:inline-block; transform:rotate(-2deg);
+    background: var(--rose); color:#3c2c31; font-weight:700;
+    padding:.25rem .6rem; border-radius:.35rem; box-shadow: var(--shadow);
+  }
+  .note{
+    background:#fff; border:var(--thin); border-radius:12px; box-shadow: var(--shadow);
+    padding:1rem 1.2rem; transform:rotate(-1.2deg);
+  }
+  .tape{
+    position:relative; display:inline-block;
+  }
+  .tape::before{
+    content:""; position:absolute; top:-10px; left:18px; right:18px; height:26px;
+    background: var(--tape); opacity:.9; transform:rotate(-3deg);
+    box-shadow:0 3px 8px rgba(0,0,0,.12);
+  }
+
+  .grid{ display:grid; gap:1.1rem; }
+  .grid--3{ grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 1000px){ .grid--3{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px){ .grid--3{ grid-template-columns: 1fr; } }
+
+  .polaroid{
+    background:#fff; border:1px solid rgba(0,0,0,.08);
+    border-radius:12px; box-shadow: var(--shadow);
+    padding:.8rem .8rem 1.1rem; text-align:center;
+    transform: rotate(var(--rot, -1.5deg));
+  }
+  .polaroid .ph{
+    height:160px; border-radius:8px; border:var(--thin);
+    background:
+      linear-gradient(130deg, #ffe3f0, #f6eedf 60%, #e9f0e1);
+  }
+  .polaroid h3{
+    font-family:"Caveat", cursive; font-size:1.6rem; margin:.6rem 0 .2rem;
+  }
+  .polaroid p{ margin:.2rem 0 .6rem; color:#5b5b5b; font-size:.95rem; }
+  .btn{
+    display:inline-block; background:var(--olive); color:#fff; text-decoration:none;
+    font-weight:700; padding:.45rem .75rem; border-radius:.5rem;
+  }
+  .btn:hover{ filter:brightness(.95); }
+
+  h2{
+    font-family:"Caveat", cursive; font-size:2.2rem; margin:1.6rem 0 .6rem;
+    display:inline-block; padding:.2rem .5rem; background:var(--rose);
+    transform:rotate(-1.5deg);
+  }
+
+  .star{ filter: drop-shadow(0 3px 6px rgba(0,0,0,.18)); }
+  .star::after{
+    content:"✦"; font-size:2rem; color:#d18ca6;
+  }
+
+  footer{ margin:2rem 0 2.5rem; text-align:center; color:#666; }
+  .link-clean{ color:inherit; text-decoration:none; border-bottom:2px solid var(--rose); }
+  .link-clean:hover{ color:var(--olive); border-color:var(--olive); }
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>Hola, soy Aída Fuentes 👩🏻‍💻</h1>
-    <p>Economista & Analista de Datos</p>
-  </header>
+  <!-- NAV -->
+  <div class="nav">
+    <div class="brand">Aída Fuentes</div>
+    <div>
+      <a href="#about">About</a>
+      <a href="#work">Projects</a>
+      <a href="#contact">Contact</a>
+      <a href="index.html" title="See editorial version">↔ Editorial version</a>
+    </div>
+  </div>
 
-  <section>
-    <h2>Sobre mí</h2>
-    <p>
-      Apasionada por la ciencia de datos, la estrategia y la creatividad.
-      Actualmente trabajo en Oliver Wyman y he completado el programa de Data Science & Machine Learning en MIT.
-    </p>
-  </section>
+  <div class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <span class="kicker tape">Hi. Since you’re new here…</span>
+        <h1 class="scribble">Let me be your guide.<br>I’m <span style="color:var(--olive)">Aída</span>.</h1>
+        <p style="max-width:600px">
+          Economist & Data Analyst. Obsessed with turning data into clear stories:
+          <strong>recommenders</strong>, <strong>marketing analytics</strong>, and <strong>consumer insights</strong>.
+        </p>
+        <div style="display:flex; gap:.6rem; align-items:center; margin-top:.6rem;">
+          <span class="star"></span>
+          <span class="star" style="transform:rotate(8deg)"></span>
+          <span class="star" style="transform:rotate(-6deg)"></span>
+        </div>
+      </div>
 
-  <section>
-    <h2>Proyectos destacados</h2>
-    <ul style="list-style: none; padding: 0;">
-      <li><a href="https://github.com/aidafuva/spotify-recommender">🎵 Spotify Recommendation System</a></li>
-      <li><a href="https://github.com/aidafuva/sql-analysis">📊 SQL Business Analysis</a></li>
-      <li><a href="https://github.com/aidafuva/mit-dsml">📚 MIT Data Science Projects</a></li>
-    </ul>
-  </section>
+      <div class="note">
+        <h3 style="margin:.2rem 0 .4rem; font-family:'Caveat',cursive; font-size:1.6rem;">Quick facts</h3>
+        <ul style="margin:.2rem 0 .2rem; padding-left:1rem">
+          <li>MIT Professional Education — DS & ML 📚</li>
+          <li>Python · SQL · Tableau · scikit-learn</li>
+          <li>Executive storytelling (slides & dashboards)</li>
+        </ul>
+        <p style="margin:.6rem 0 0; font-size:.95rem; color:#5b5b5b">
+          *Yes, I also do scraping and data cleaning without crying.
+        </p>
+      </div>
+    </section>
 
-  <section>
-    <h2>Contacto</h2>
-    <p>
-      <a href="mailto:tuemail@gmail.com">📧 Email</a> |
-      <a href="https://www.linkedin.com/in/aidafuva">💼 LinkedIn</a> |
-      <a href="cv.pdf">📄 CV</a>
-    </p>
-  </section>
+    <!-- ABOUT -->
+    <section id="about">
+      <h2>About me</h2>
+      <p style="max-width:900px">
+        I work at the intersection of <strong>strategy</strong>, <strong>data</strong>, and <strong>creativity</strong>.
+        I enjoy building measurable products and decisions: experimentation, KPIs, and models that truly move the needle.
+        Design influence: “editorial + collage vibes” (cosmic latte, olive green, polaroids).
+      </p>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="work">
+      <h2>Projects</h2>
+      <div class="grid grid--3">
+        <article class="polaroid" style="--rot:-2deg">
+          <div class="ph"></div>
+          <h3>Spotify Recommender</h3>
+          <p>EDA + item/user-based, SVD and content-based. Metrics and storytelling.</p>
+          <a class="btn" href="https://github.com/aidafuva/spotify-recommender" target="_blank" rel="noopener">Repo ↗</a>
+        </article>
+
+        <article class="polaroid" style="--rot:1.5deg">
+          <div class="ph"></div>
+          <h3>SQL Business Analysis</h3>
+          <p>Cohorts, LTV, funnels, and channel conversion.</p>
+          <a class="btn" href="https://github.com/aidafuva/sql-analysis" target="_blank" rel="noopener">Repo ↗</a>
+        </article>
+
+        <article class="polaroid" style="--rot:-1deg">
+          <div class="ph"></div>
+          <h3>MIT DSML</h3>
+          <p>Classification, clustering and evaluation; business-focused.</p>
+          <a class="btn" href="https://github.com/aidafuva/mit-dsml" target="_blank" rel="noopener">Repo ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="note" style="transform:rotate(1.2deg); max-width:780px">
+        <p style="margin:.2rem 0">Interested in collaborating or have a role in mind?</p>
+        <p style="margin:.2rem 0">
+          <a class="link-clean" href="mailto:youremail@gmail.com">Email</a> ·
+          <a class="link-clean" href="https://www.linkedin.com/in/aidafuva" target="_blank" rel="noopener">LinkedIn</a> ·
+          <a class="link-clean" href="cv.pdf" target="_blank" rel="noopener">CV</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <small>© <script>document.write(new Date().getFullYear())</script> Aída Fuentes — Scrapbook v1</small>
+    </footer>
+  </div>
 </body>
 </html>
