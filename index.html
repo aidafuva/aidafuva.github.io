@@ -92,10 +92,9 @@
     padding:.8rem .8rem 1.1rem; text-align:center;
     transform: rotate(var(--rot, -1.5deg));
   }
-  .polaroid .ph{
-    height:160px; border-radius:8px; border:var(--thin);
-    background:
-      linear-gradient(130deg, #ffe3f0, #f6eedf 60%, #e9f0e1);
+  .polaroid img{
+    width:100%; height:160px; object-fit:cover;
+    border-radius:8px; border:1px solid rgba(0,0,0,.08);
   }
   .polaroid h3{
     font-family:"Caveat", cursive; font-size:1.6rem; margin:.6rem 0 .2rem;
@@ -113,11 +112,6 @@
     transform:rotate(-1.5deg);
   }
 
-  .star{ filter: drop-shadow(0 3px 6px rgba(0,0,0,.18)); }
-  .star::after{
-    content:"✦"; font-size:2rem; color:#d18ca6;
-  }
-
   footer{ margin:2rem 0 2.5rem; text-align:center; color:#666; }
   .link-clean{ color:inherit; text-decoration:none; border-bottom:2px solid var(--rose); }
   .link-clean:hover{ color:var(--olive); border-color:var(--olive); }
@@ -132,7 +126,7 @@
       <a href="#about">About</a>
       <a href="#work">Projects</a>
       <a href="#contact">Contact</a>
-      <a href="index.html" title="See editorial version">↔ Editorial version</a>
+      <a href="index.html" title="See editorial version">↔ Editorial</a>
     </div>
   </div>
 
@@ -146,11 +140,6 @@
           Economist & Data Analyst. Obsessed with turning data into clear stories:
           <strong>recommenders</strong>, <strong>marketing analytics</strong>, and <strong>consumer insights</strong>.
         </p>
-        <div style="display:flex; gap:.6rem; align-items:center; margin-top:.6rem;">
-          <span class="star"></span>
-          <span class="star" style="transform:rotate(8deg)"></span>
-          <span class="star" style="transform:rotate(-6deg)"></span>
-        </div>
       </div>
 
       <div class="note">
@@ -160,45 +149,35 @@
           <li>Python · SQL · Tableau </li>
           <li>Executive storytelling (slides & dashboards)</li>
         </ul>
-        <p style="margin:.6rem 0 0; font-size:.90rem; color:#5b5b5b">
-          *Yes, I also do scraping and data cleaning without crying.
-        </p>
       </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about">
-      <h2>About me</h2>
-      <p style="max-width:900px">
-        I work at the intersection of <strong>strategy</strong>, <strong>data</strong>, and <strong>creativity</strong>.
-        I enjoy building measurable products and decisions: experimentation, KPIs, and models that truly move the needle.
-      </p>
     </section>
 
     <!-- PROJECTS -->
     <section id="work">
       <h2>Projects</h2>
       <div class="grid grid--3">
+
         <article class="polaroid" style="--rot:-2deg">
-          <div class="ph"></div>
+          <img src="assets/recommender.PNG" alt="Spotify Recommender">
           <h3>Spotify Recommender</h3>
           <p>EDA + item/user-based, SVD and content-based. Metrics and storytelling.</p>
           <a class="btn" href="https://github.com/aidafuva/spotify-recommender" target="_blank" rel="noopener">Repo ↗</a>
         </article>
 
         <article class="polaroid" style="--rot:1.5deg">
-          <div class="ph"></div>
-          <h3>SQL Business Analysis</h3>
+          <img src="assets/sql.PNG" alt="SQL Business Analysis">
+          <h3>Business Data in SQL</h3>
           <p>Cohorts, LTV, funnels, and channel conversion.</p>
           <a class="btn" href="https://github.com/aidafuva/sql-analysis" target="_blank" rel="noopener">Repo ↗</a>
         </article>
 
         <article class="polaroid" style="--rot:-1deg">
-          <div class="ph"></div>
-          <h3>MIT DSML</h3>
-          <p>Classification, clustering and evaluation; business-focused.</p>
-          <a class="btn" href="https://github.com/aidafuva/mit-dsml" target="_blank" rel="noopener">Repo ↗</a>
+          <img src="assets/marketing.PNG" alt="Marketing Campaign Analysis">
+          <h3>Marketing Campaign Analysis</h3>
+          <p>Segmentation, KPIs and insights for strategy.</p>
+          <a class="btn" href="https://github.com/aidafuva/marketing-analysis" target="_blank" rel="noopener">Repo ↗</a>
         </article>
+
       </div>
     </section>
 
@@ -206,8 +185,8 @@
     <section id="contact">
       <h2>Contact</h2>
       <div class="note" style="transform:rotate(1.2deg); max-width:780px">
-        <p style="margin:.2rem 0">Interested in collaborating or have a role in mind?</p>
-        <p style="margin:.2rem 0">
+        <p>Interested in collaborating or have a role in mind?</p>
+        <p>
           <a class="link-clean" href="mailto:aida.a.fuentes@gmail.com">Email</a> ·
           <a class="link-clean" href="https://www.linkedin.com/in/aidafuentesv" target="_blank" rel="noopener">LinkedIn</a> ·
           <a class="link-clean" href="cv.pdf" target="_blank" rel="noopener">CV</a>
