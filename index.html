@@ -58,6 +58,7 @@
   .nav a{
     text-decoration:none; color:var(--ink); font-weight:700; border-bottom:2px solid transparent;
     padding:.2rem .1rem; margin-left:1rem;
+    transition: color .2s, border-color .2s;
   }
   .nav a:focus-visible{ outline:3px solid #000; outline-offset:3px; border-radius:4px;}
   .nav a:hover{ border-color:var(--olive); color:var(--olive); }
@@ -113,6 +114,14 @@
     border-radius:12px; box-shadow: var(--shadow);
     padding:.8rem .8rem 1.1rem; text-align:left;
     transform: rotate(var(--rot, -1.5deg));
+    transition: transform .3s ease, box-shadow .3s ease;
+    cursor: default;
+  }
+  .polaroid:hover{
+    transform: rotate(0deg) translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,.18);
+    z-index: 2;
+    position: relative;
   }
   .polaroid img{
     width:100%; height:160px; object-fit:cover;
@@ -128,8 +137,9 @@
   .btn{
     display:inline-block; background:var(--olive); color:#fff; text-decoration:none;
     font-weight:700; padding:.45rem .75rem; border-radius:.5rem;
+    transition: filter .2s, transform .2s;
   }
-  .btn:hover{ filter:brightness(.95); }
+  .btn:hover{ filter:brightness(.9); transform: translateY(-2px); }
   .btn--ghost{
     background:#fff; border:1.5px solid var(--olive); color:var(--olive);
   }
@@ -139,7 +149,9 @@
   .pill{
     padding:.25rem .55rem; border-radius:999px; border:1px solid rgba(0,0,0,.12);
     background:var(--pill); font-size:.86rem; font-weight:600;
+    transition: background .2s, transform .15s;
   }
+  .pill:hover{ background: var(--rose); transform: scale(1.05); }
 
   /* DETAILS (case sections) */
   details{
@@ -154,9 +166,56 @@
   .link-clean{ color:inherit; text-decoration:none; border-bottom:2px solid var(--rose); }
   .link-clean:hover{ color:var(--olive); border-color:var(--olive); }
 
-  /* Print-friendly CV button on top-right in contact */
   .cta-row{ display:flex; gap:.6rem; flex-wrap:wrap; align-items:center; }
   .cta-row .btn{ transform:rotate(-1deg) }
+
+  /* ── ANIMACIONES DE SCROLL ─────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-28px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  /* Estado inicial: invisible y ligeramente abajo */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .55s ease, transform .55s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Variantes de delay para que las tarjetas entren en cascada */
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
+
+  /* Hero entra al cargar */
+  .hero-text { animation: slideInLeft .7s ease both; }
+  .hero-note { animation: fadeUp .7s .2s ease both; }
+
+  /* ── TABLEAU SECTION ───────────────────────────────────────────── */
+  .tableau-wrap {
+    background:#fff; border:var(--thin); border-radius:16px;
+    box-shadow: var(--shadow); padding:1.2rem;
+    overflow:hidden;
+  }
+  .tableau-label {
+    font-family:"Caveat", cursive; font-size:1.25rem; font-weight:700;
+    color: var(--olive); margin:0 0 .75rem;
+  }
+  .tableau-meta {
+    font-size:.85rem; color:#777; margin:.5rem 0 0;
+  }
 </style>
 </head>
 
@@ -167,6 +226,7 @@
     <div role="menubar" aria-label="Sections">
       <a href="#about" role="menuitem">About</a>
       <a href="#cases" role="menuitem">Case Studies</a>
+      <a href="#dashboards" role="menuitem">Dashboards</a>
       <a href="#methods" role="menuitem">Methods</a>
       <a href="#contact" role="menuitem">Contact</a>
       <a href="index.html" title="Editorial version">↔ Editorial</a>
@@ -176,9 +236,9 @@
   <main class="wrap">
     <!-- HERO -->
     <section id="about" class="hero" aria-labelledby="about-h">
-      <div>
-        <span class="kicker tape" aria-hidden="true">Hi. Since you’re new here…</span>
-        <h1 class="scribble" id="about-h">Let me be your guide.<br>I’m <span style="color:var(--olive)">Aída</span>.</h1>
+      <div class="hero-text">
+        <span class="kicker tape" aria-hidden="true">Hi. Since you're new here…</span>
+        <h1 class="scribble" id="about-h">Let me be your guide.<br>I'm <span style="color:var(--olive)">Aída</span>.</h1>
         <p class="lede">
           Economist & <strong>Data/Insights Researcher</strong> (CDMX). I turn messy data & human signals
           into <strong>clear, decision-ready stories</strong> — recommenders, marketing analytics, and consumer insights.
@@ -191,7 +251,7 @@
         </div>
       </div>
 
-      <aside class="note" aria-label="Quick facts">
+      <aside class="note hero-note" aria-label="Quick facts">
         <h3 style="margin:.2rem 0 .4rem; font-family:'Caveat',cursive; font-size:1.6rem;">Quick facts</h3>
         <ul style="margin:.2rem 0 .2rem; padding-left:1rem">
           <li>MIT Professional Education — Data Science & ML; Leveraging AI for Decisions</li>
@@ -203,18 +263,17 @@
 
     <!-- CASE STUDIES -->
     <section id="cases" aria-labelledby="cases-h">
-      <h2 id="cases-h">Case Studies</h2>
-      <p class="lede">Short, cinematic reads. Each one answers: <em>What was the bet? What did we do? What changed?</em></p>
+      <h2 id="cases-h" class="reveal">Case Studies</h2>
+      <p class="lede reveal">Short, cinematic reads. Each one answers: <em>What was the bet? What did we do? What changed?</em></p>
 
       <div class="grid grid--3">
         <!-- Spotify -->
-        <article class="polaroid" style="--rot:-2deg">
+        <article class="polaroid reveal reveal-delay-1" style="--rot:-2deg">
           <img src="assets/recommender.PNG" alt="Screenshot of Spotify recommender analysis" />
           <h3>Spotify Recommender</h3>
           <small>EDA · Item/User-based · SVD · Content-based</small>
           <p>Built hybrid recsys and explained trade-offs (precision/novelty/coverage) with clear metrics and slices.</p>
           <p class="meta">Repo: <a class="link-clean" href="https://github.com/aidafuva/spotify-recommender" target="_blank" rel="noopener">github.com/aidafuva/spotify-recommender ↗</a></p>
-
           <details>
             <summary>Logline → Problem → Approach → Impact → Tools</summary>
             <ul>
@@ -228,13 +287,12 @@
         </article>
 
         <!-- SQL Biz -->
-        <article class="polaroid" style="--rot:1.5deg">
+        <article class="polaroid reveal reveal-delay-2" style="--rot:1.5deg">
           <img src="assets/sql.PNG" alt="SQL business analysis notebook and charts" />
           <h3>Business Data in SQL</h3>
           <small>Cohorts · LTV · Funnels · Channel conversion</small>
           <p>Designed analytic SQL to explain acquisition → activation → retention; surfaced leverage points.</p>
           <p class="meta">Repo: <a class="link-clean" href="https://github.com/aidafuva/sql-analysis" target="_blank" rel="noopener">github.com/aidafuva/sql-analysis ↗</a></p>
-
           <details>
             <summary>Logline → Problem → Approach → Impact → Tools</summary>
             <ul>
@@ -248,17 +306,16 @@
         </article>
 
         <!-- Marketing / Amazon -->
-        <article class="polaroid" style="--rot:-1deg">
+        <article class="polaroid reveal reveal-delay-3" style="--rot:-1deg">
           <img src="assets/marketing.PNG" alt="Marketing analysis visuals (segmentation and KPIs)" />
           <h3>Marketing Analysis & Amazon Recommender</h3>
           <small>Segmentation · KPIs · Strategy insights</small>
           <p>Connected segments to creative/messaging; quantified lift and produced a clear action brief.</p>
           <p class="meta">Repo: <a class="link-clean" href="https://github.com/aidafuva/marketing-analysis" target="_blank" rel="noopener">github.com/aidafuva/marketing-analysis ↗</a></p>
-
           <details>
             <summary>Logline → Problem → Approach → Impact → Tools</summary>
             <ul>
-              <li><strong>Logline:</strong> Put the “so what?” into marketing dashboards.</li>
+              <li><strong>Logline:</strong> Put the "so what?" into marketing dashboards.</li>
               <li><strong>Problem:</strong> Many KPIs, little signal for decisions.</li>
               <li><strong>Approach:</strong> Segment discovery, creative mapping, K-factor style loops, holdout logic.</li>
               <li><strong>Impact:</strong> Prioritized two segments with highest marginal ROI; simplified readouts for weekly exec cadence.</li>
@@ -269,13 +326,61 @@
       </div>
     </section>
 
+    <!-- TABLEAU DASHBOARDS (en vivo) -->
+    <section id="dashboards" aria-labelledby="dashboards-h">
+      <h2 id="dashboards-h" class="reveal">Live Dashboards</h2>
+      <p class="lede reveal">Dashboards interactivos — explóralos directo aquí, sin salir del portafolio.</p>
+
+      <div class="reveal" style="margin-top:1.2rem;">
+        <div class="tableau-wrap">
+          <p class="tableau-label">A/B Testing: Facebook vs. AdWords</p>
+
+          <!-- Tableau Public embed -->
+          <div class='tableauPlaceholder' id='viz_abtesting' style='position:relative; width:100%;'>
+            <noscript>
+              <a href='https://public.tableau.com/app/profile/aida.alejandra.fuentes.valdes/viz/ABtestingFacebookvsAdWords_17788892737420/Dashboard1'>
+                <img alt='Dashboard 1' src='https://public.tableau.com/static/images/AB/ABtestingFacebookvsAdWords_17788892737420/Dashboard1/1_rss.png' style='border:none' />
+              </a>
+            </noscript>
+            <object class='tableauViz' style='display:none;'>
+              <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+              <param name='embed_code_version' value='3' />
+              <param name='site_root' value='' />
+              <param name='name' value='ABtestingFacebookvsAdWords_17788892737420/Dashboard1' />
+              <param name='tabs' value='no' />
+              <param name='toolbar' value='yes' />
+              <param name='animate_transition' value='yes' />
+              <param name='display_static_image' value='yes' />
+              <param name='display_spinner' value='yes' />
+              <param name='display_overlay' value='yes' />
+              <param name='display_count' value='yes' />
+              <param name='language' value='en-US' />
+            </object>
+          </div>
+          <script type='text/javascript'>
+            (function(){
+              var d = document.getElementById('viz_abtesting');
+              var v = d.getElementsByTagName('object')[0];
+              v.style.width  = '100%';
+              v.style.height = (d.offsetWidth * 0.75) + 'px';
+              var s = document.createElement('script');
+              s.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+              v.parentNode.insertBefore(s, v);
+            })();
+          </script>
+
+          <p class="tableau-meta">A/B test comparing Facebook Ads vs. Google AdWords — conversion rates, cost-per-click, and statistical significance across channels.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- METHODS -->
     <section id="methods" aria-labelledby="methods-h">
-      <h2 id="methods-h">Methods & Capabilities</h2>
-      <p class="lede">I use the right method for the question — and translate it to decisions teams can act on.</p>
+      <h2 id="methods-h" class="reveal">Methods & Capabilities</h2>
+      <p class="lede reveal">I use the right method for the question — and translate it to decisions teams can act on.</p>
 
       <div class="grid grid--2">
-        <article class="polaroid" style="--rot:-1deg">
+        <article class="polaroid reveal reveal-delay-1" style="--rot:-1deg">
           <h3>Quant</h3>
           <div class="pills" aria-label="Quant methods">
             <span class="pill">Cohorts/Retention</span><span class="pill">LTV/CAC</span>
@@ -286,7 +391,7 @@
           <p class="meta">Stack: SQL (CTEs-first), Python (pandas, scikit-learn), Tableau.</p>
         </article>
 
-        <article class="polaroid" style="--rot:1.5deg">
+        <article class="polaroid reveal reveal-delay-2" style="--rot:1.5deg">
           <h3>Qual & Mixed</h3>
           <div class="pills" aria-label="Qual methods">
             <span class="pill">User interviews</span><span class="pill">Diary studies</span>
@@ -301,14 +406,14 @@
 
     <!-- CERTIFICATES -->
     <section id="certificates" aria-labelledby="certs-h">
-      <h2 id="certs-h">Certificates</h2>
+      <h2 id="certs-h" class="reveal">Certificates</h2>
       <div class="grid grid--2">
-        <div class="polaroid" style="--rot:-1deg">
+        <div class="polaroid reveal reveal-delay-1" style="--rot:-1deg">
           <h3 style="margin:.2rem 0 .4rem;">MIT Professional Education</h3>
           <p><em>Leveraging AI for Effective Decision Making</em><br>May 17 – Aug 24, 2025</p>
           <a class="btn" href="assets/4owvxqdf_1758559369452.pdf" target="_blank" rel="noopener">View Certificate ↗</a>
         </div>
-        <div class="polaroid" style="--rot:1.2deg">
+        <div class="polaroid reveal reveal-delay-2" style="--rot:1.2deg">
           <h3 style="margin:.2rem 0 .4rem;">Award Letter — MIT</h3>
           <p><em>Applied Data Science Program</em><br>Completion + 16 CEUs</p>
           <a class="btn" href="assets/PDFMailer.pdf" target="_blank" rel="noopener">View Letter ↗</a>
@@ -317,38 +422,37 @@
     </section>
 
     <!-- TIKTOK GALLERY -->
-<section id="tiktoks" aria-labelledby="tiktok-h">
-  <h2 id="tiktok-h">TikTok — Visual Essays 🎥</h2>
-  <p class="lede">Short-form storytelling on cinema, emotion, and visual language — data meets art.</p>
+    <section id="tiktoks" aria-labelledby="tiktok-h">
+      <h2 id="tiktok-h" class="reveal">TikTok — Visual Essays 🎥</h2>
+      <p class="lede reveal">Short-form storytelling on cinema, emotion, and visual language — data meets art.</p>
 
-  <div class="grid grid--3">
-    <article class="polaroid" style="--rot:-1.2deg">
-      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patternsofcinema/video/7339237425820028165" data-video-id="7339237425820028165" style="max-width: 305px; min-width: 225px;">
-        <section></section>
-      </blockquote>
-    </article>
+      <div class="grid grid--3">
+        <article class="polaroid reveal reveal-delay-1" style="--rot:-1.2deg">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patternsofcinema/video/7339237425820028165" data-video-id="7339237425820028165" style="max-width: 305px; min-width: 225px;">
+            <section></section>
+          </blockquote>
+        </article>
 
-    <article class="polaroid" style="--rot:1.2deg">
-      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patternsofcinema/video/7228603446071528710" data-video-id="7228603446071528710" style="max-width: 305px; min-width: 225px;">
-        <section></section>
-      </blockquote>
-    </article>
+        <article class="polaroid reveal reveal-delay-2" style="--rot:1.2deg">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patternsofcinema/video/7228603446071528710" data-video-id="7228603446071528710" style="max-width: 305px; min-width: 225px;">
+            <section></section>
+          </blockquote>
+        </article>
 
-    <article class="polaroid" style="--rot:-1.5deg">
-      <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patternsofcinema/video/7199070104280222981" data-video-id="7199070104280222981" style="max-width: 305px; min-width: 225px;">
-        <section></section>
-      </blockquote>
-    </article>
-  </div>
+        <article class="polaroid reveal reveal-delay-3" style="--rot:-1.5deg">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@patternsofcinema/video/7199070104280222981" data-video-id="7199070104280222981" style="max-width: 305px; min-width: 225px;">
+            <section></section>
+          </blockquote>
+        </article>
+      </div>
 
-  <script async src="https://www.tiktok.com/embed.js"></script>
-</section>
-
+      <script async src="https://www.tiktok.com/embed.js"></script>
+    </section>
 
     <!-- CONTACT -->
     <section id="contact" aria-labelledby="contact-h">
-      <h2 id="contact-h">Contact</h2>
-      <div class="note" style="transform:rotate(1.2deg); max-width:820px">
+      <h2 id="contact-h" class="reveal">Contact</h2>
+      <div class="note reveal" style="transform:rotate(1.2deg); max-width:820px">
         <p>Interested in collaborating or have a role in mind?</p>
         <div class="cta-row">
           <a class="btn" href="mailto:aida.a.fuentes@gmail.com">Email</a>
@@ -362,5 +466,23 @@
       <small>© <script>document.write(new Date().getFullYear())</script> Aída Fuentes — Portfolio</small>
     </footer>
   </main>
+
+  <!-- ── SCROLL REVEAL ─────────────────────────────────────────────── -->
+  <script>
+    (function(){
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // animar solo una vez
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.reveal').forEach(function(el){
+        observer.observe(el);
+      });
+    })();
+  </script>
 </body>
 </html>
