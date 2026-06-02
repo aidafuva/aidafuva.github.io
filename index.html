@@ -197,34 +197,6 @@
   .polaroid p { margin: .2rem 0 .6rem; color: #454545; font-size: .93rem; }
   .meta { font-size: .85rem; color: #555; margin: .35rem 0 0; }
 
-  /* ── TABLEAU EMBED CARD ── */
-  .tableau-card {
-    background: #fff; border: 1px solid rgba(0,0,0,.08);
-    border-radius: 12px; box-shadow: var(--shadow);
-    padding: .8rem; overflow: hidden;
-    transform: rotate(var(--rot, -1deg));
-    transition: transform .3s ease, box-shadow .3s ease;
-    grid-column: span 2;
-  }
-  .tableau-card:hover {
-    transform: rotate(0deg) translateY(-4px);
-    box-shadow: 0 18px 36px rgba(0,0,0,.16);
-  }
-  @media (max-width: 700px) { .tableau-card { grid-column: span 1; } }
-
-  .tableau-card h3 { font-weight: 800; margin: 0 0 .3rem; font-size: 1.05rem; }
-  .tableau-card small { color: #666; display: block; margin-bottom: .5rem; font-size: .8rem; }
-
-  .tableau-wrap {
-    position: relative; width: 100%; padding-bottom: 56%;
-    border-radius: 8px; overflow: hidden; background: #f0ede6;
-  }
-  .tableau-wrap iframe {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none; border-radius: 8px;
-  }
-
   /* ── BUTTONS ── */
   .btn {
     display: inline-block; background: var(--olive); color: #fff;
@@ -346,21 +318,21 @@
           </details>
         </article>
 
-        <!-- SQL Biz -->
+        <!-- Facebook vs AdWords -->
         <article class="polaroid" style="--rot:1.5deg">
-          <img src="assets/sql.PNG" alt="SQL business analysis notebook and charts" />
-          <h3>Business Data in SQL</h3>
-          <small>Cohorts · LTV · Funnels · Channel conversion</small>
-          <p>Designed analytic SQL to explain acquisition → activation → retention; surfaced leverage points.</p>
-          <p class="meta">Repo: <a class="link-clean" href="https://github.com/aidafuva/sql-analysis" target="_blank" rel="noopener">github.com/aidafuva/sql-analysis ↗</a></p>
+          <img src="assets/Portafolio2.PNG" alt="Facebook Ads vs Google AdWords statistical analysis" />
+          <h3>Facebook Ads vs Google AdWords</h3>
+          <small>A/B Testing · Statistical Inference · Incrementality · Python</small>
+          <p>Rigorous channel comparison using hypothesis testing to determine which paid platform drives statistically significant conversion lift.</p>
+          <p class="meta">Repo: <a class="link-clean" href="https://github.com/aidafuva/marketing-analysis" target="_blank" rel="noopener">github.com/aidafuva/marketing-analysis ↗</a></p>
           <details>
             <summary>Logline → Problem → Approach → Impact → Tools</summary>
             <ul>
-              <li><strong>Logline:</strong> Make growth levers measurable and debuggable.</li>
-              <li><strong>Problem:</strong> Fragmented event data; unclear funnel drop-offs and CAC payback.</li>
-              <li><strong>Approach:</strong> CTE-first SQL, cohorting, retention curves, LTV/CAC modeling, channel mixes; QA checklists.</li>
-              <li><strong>Impact:</strong> Identified 2 steps causing 60–70% of drop-off; scenarios for +X% activation with minimal eng changes.</li>
-              <li><strong>Tools:</strong> Postgres/BigQuery-style SQL, dbt-like structure for reuse.</li>
+              <li><strong>Logline:</strong> Which paid channel deserves more budget — and can we prove it statistically?</li>
+              <li><strong>Problem:</strong> Facebook and AdWords ran simultaneously; raw conversion counts obscure whether differences are real or noise.</li>
+              <li><strong>Approach:</strong> Normality checks (Shapiro-Wilk) → parametric testing (Z-test, Welch's T-test) → non-parametric robustness check (Mann-Whitney U); full assumption validation before each test.</li>
+              <li><strong>Impact:</strong> Facebook generates 2× more conversions at comparable CPC — effect confirmed across parametric and non-parametric methods, giving a defensible budget reallocation signal.</li>
+              <li><strong>Tools:</strong> Python (pandas, scipy, matplotlib), Kaggle dataset.</li>
             </ul>
           </details>
         </article>
@@ -385,31 +357,7 @@
         </article>
       </div>
 
-      <!-- TABLEAU LIVE DASHBOARD -->
-      <div style="margin-top:1.1rem;" class="reveal">
-        <div class="tableau-card" style="--rot:-0.5deg">
-          <h3>A/B Testing: Facebook vs AdWords — Live Dashboard</h3>
-          <small>Campaign Analysis · Incrementality · Causal Measurement · Tableau</small>
-          <div class="tableau-wrap">
-            <iframe
-              src="https://public.tableau.com/views/ABtestingFacebookvsAdWords_17788892737420/Dashboard1?:embed=y&:display_count=no&:showVizHome=no"
-              allowfullscreen
-              title="A/B Testing Facebook vs AdWords Dashboard">
-            </iframe>
-          </div>
-          <p style="margin:.6rem 0 .2rem; color:#454545; font-size:.9rem;">Interactive dashboard comparing conversions, conversion rate, and cost-per-click across two paid channels. Click any data point to filter all charts simultaneously.</p>
-          <details style="margin-top:.6rem">
-            <summary>Logline → Problem → Approach → Impact → Tools</summary>
-            <ul>
-              <li><strong>Logline:</strong> Which paid channel deserves more budget?</li>
-              <li><strong>Problem:</strong> Facebook and AdWords run simultaneously — unclear which drives incremental value vs. baseline volume.</li>
-              <li><strong>Approach:</strong> A/B comparison across conversions, conversion rate, and CPC over time; interactive filters by year to isolate performance periods.</li>
-              <li><strong>Impact:</strong> Facebook generates 2x more conversions at similar CPC — suggesting superior reach, not efficiency. Actionable budget reallocation signal.</li>
-              <li><strong>Tools:</strong> Tableau Public (dual-axis charts, interactive dashboard filters).</li>
-            </ul>
-          </details>
-        </div>
-      </div>
+
     </section>
 
     <!-- METHODS -->
